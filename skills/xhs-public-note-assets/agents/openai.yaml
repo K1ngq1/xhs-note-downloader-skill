@@ -1,0 +1,11 @@
+interface:
+  display_name: "小红书公开图文素材归档"
+  short_description: "归档已授权的小红书公开图文，核验轮播、水印与缺失项"
+  default_prompt: "Use $xhs-public-note-assets to archive authorized Xiaohongshu image posts and produce a verified manifest."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "xhsDownloader"
+      description: "Optional local XHS-Downloader MCP server for authorized public note metadata and downloads"
+      transport: "streamable_http"
+      url: "http://127.0.0.1:5556/mcp/"
