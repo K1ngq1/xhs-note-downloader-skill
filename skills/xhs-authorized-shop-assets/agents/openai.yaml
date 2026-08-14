@@ -1,0 +1,4 @@
+interface:
+  display_name: "小红书授权店铺素材归档"
+  short_description: "归档已授权小红书店铺的商品详情图、可见价格与核验清单"
+  default_prompt: "Use $xhs-authorized-shop-assets to archive an authorized Xiaohongshu shop's product images and displayed prices."

@@ -1,10 +1,26 @@
-# XHS Note Downloader Skill
+# XHS Authorized Assets Plugin
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
-A Codex Desktop Skill for exporting image assets from Xiaohongshu notes that the user owns or is explicitly authorized to archive.
+A two-skill plugin for exporting authorized Xiaohongshu image notes and shop product assets.
 
-The Skill uses the external XHS-Downloader MCP for metadata and downloads, preserves image bytes and carousel order, and produces validated JSON/CSV manifests. It excludes shops, prices, videos, watermark removal, private content, CAPTCHA bypass, and unauthorized bulk collection.
+It includes `xhs-public-note-assets` for image notes and `xhs-authorized-shop-assets` for authorized product-detail images and currently displayed prices. It excludes orders, stock or listing changes, videos, watermark removal, CAPTCHA bypass, and unauthorized bulk collection.
+
+## One-command install
+
+Windows:
+
+```bat
+py -3 -c "import urllib.request; exec(urllib.request.urlopen('https://raw.githubusercontent.com/K1ngq1/xhs-note-downloader-skill/main/install.py').read().decode('utf-8'))"
+```
+
+macOS / Linux:
+
+```bash
+python3 -c "import urllib.request; exec(urllib.request.urlopen('https://raw.githubusercontent.com/K1ngq1/xhs-note-downloader-skill/main/install.py').read().decode('utf-8'))"
+```
+
+This fast path copies both skills to `~/.agents/skills` using only the Python standard library. It does not install the optional XHS-Downloader runtime. Use `--replace` to update while retaining the previous installation as a timestamped backup.
 
 ## Repository layout
 
@@ -19,29 +35,44 @@ skills/xhs-public-note-assets/
     materialize_export.py
     validate_export.py
   references/
+skills/xhs-authorized-shop-assets/
+  SKILL.md
+  agents/openai.yaml
+  scripts/
+  references/
+.codex-plugin/plugin.json
+install.py
 tests/
 ```
 
 No downloaded media, Cookie, token, account-specific data, browser profile, or absolute personal path belongs in this repository.
 
-## Install the Skill
+## Install through an agent
 
-Ask Codex to install the GitHub repository path:
+Codex `$skill-installer` can also install both repository paths:
 
 ```text
 skills/xhs-public-note-assets
+skills/xhs-authorized-shop-assets
 ```
 
-The installed Skill name is `xhs-public-note-assets`.
+The plugin manifest exposes both focused skills in one package.
 
-## Set up XHS-Downloader MCP
+## Optional XHS-Downloader MCP
 
-XHS-Downloader is a separate GPL-3.0 dependency and is not bundled here. The helper requires Git and Python 3.12:
+Shop capture uses the signed-in visible browser and does not require XHS-Downloader. Install the optional runtime only for the note MCP path. A combined one-command install is:
+
+```bat
+py -3.12 -c "import urllib.request; exec(urllib.request.urlopen('https://raw.githubusercontent.com/K1ngq1/xhs-note-downloader-skill/main/install.py').read().decode('utf-8'))" --with-runtime
+```
+
+XHS-Downloader is a separate GPL-3.0 dependency and is not bundled here. The helper requires Git and Python 3.12 and prefers `uv` when available:
 
 ```text
 python skills/xhs-public-note-assets/scripts/bootstrap_xhs_downloader.py \
   --python /path/to/python3.12 \
-  --install-dir /path/to/XHS-Downloader-2.7
+  --install-dir /path/to/XHS-Downloader-2.7 \
+  --installer auto
 ```
 
 The generated local launcher:
@@ -74,6 +105,10 @@ The terminal prompt is hidden. The helper removes accidental CR/LF/tab character
 
 ```text
 Use $xhs-public-note-assets to archive this authorized Xiaohongshu image note and produce a verified manifest.
+```
+
+```text
+Use $xhs-authorized-shop-assets to archive my authorized shop's product images and currently displayed prices.
 ```
 
 For a profile, inventory first, keep only authorized `normal`/image notes, and pass the complete URL including its temporary `xsec_token` directly to MCP. All exported manifest URLs are canonicalized and stripped of signed query parameters.

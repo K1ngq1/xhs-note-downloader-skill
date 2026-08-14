@@ -17,6 +17,8 @@ manifest.json
 manifest.csv
 xhs-mcp-download/
 xhs-public-note-export-*/
+*.backup-*/
+.agents/
 *.jpg
 *.jpeg
 *.png

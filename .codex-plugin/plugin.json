@@ -1,0 +1,36 @@
+{
+  "name": "xhs-note-downloader",
+  "version": "0.2.0",
+  "description": "Archive authorized Xiaohongshu image notes and shop product assets with verified manifests.",
+  "author": {
+    "name": "K1ngq1",
+    "url": "https://github.com/K1ngq1"
+  },
+  "homepage": "https://github.com/K1ngq1/xhs-note-downloader-skill",
+  "repository": "https://github.com/K1ngq1/xhs-note-downloader-skill",
+  "license": "MIT",
+  "keywords": [
+    "xiaohongshu",
+    "xhs",
+    "image-export",
+    "shop-assets"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "XHS Authorized Assets",
+    "shortDescription": "Archive authorized XHS notes, shop images, and visible prices.",
+    "longDescription": "Two focused read-only skills for authorized Xiaohongshu image-note exports and shop product-detail image and displayed-price archives.",
+    "developerName": "K1ngq1",
+    "category": "Productivity",
+    "capabilities": [
+      "Browser",
+      "Local files",
+      "Verified manifests"
+    ],
+    "websiteURL": "https://github.com/K1ngq1/xhs-note-downloader-skill",
+    "defaultPrompt": [
+      "Archive my authorized Xiaohongshu image notes.",
+      "Export my shop product images and visible prices."
+    ]
+  }
+}

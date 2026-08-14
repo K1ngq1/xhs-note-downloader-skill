@@ -15,7 +15,7 @@ Archive authorized public image notes without changing account state. Prefer the
 - Do not read or export browser cookies, local storage, passwords, authorization headers, or session data.
 - Do not pass Cookie values through chat, shell arguments, capture files, manifests, or MCP tool parameters. A user may configure an optional Cookie privately in the upstream server, but this skill must never inspect or echo it.
 - Preserve visible platform watermarks. Never remove or conceal them as part of this workflow.
-- Reject shop, price, order, and video-download requests as out of scope. Use a more appropriate skill when available.
+- Route authorized shop images and displayed-price requests to `$xhs-authorized-shop-assets`. Reject orders, stock changes, publishing, and video downloads.
 
 ## Tool Routing
 
